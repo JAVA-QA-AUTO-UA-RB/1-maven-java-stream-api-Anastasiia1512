@@ -2,7 +2,11 @@ package org.example;
 
 import org.example.dto.User;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Comparator;
+
 
 public class UserProcessor {
 
@@ -14,6 +18,11 @@ public class UserProcessor {
         // список, що повертається повинен бути відсортованим по полю "name" в алфавітному порядку Ascending (тобто від A -> Z)
 
         //!!! У тілі метода ЗАБОРОНЕНО використовувати класичні цикли for, while, do-while для перебору по колекціям
-        return null;
+
+        return users.stream()
+                .filter(user -> user.getAge() > 25)
+                .filter(user -> user.getEmail().endsWith("ilovedogs.com") || user.getEmail().endsWith("ilovecats.com"))
+                .sorted(Comparator.comparing(User::getName))
+                .collect(Collectors.toList());
     }
 }
